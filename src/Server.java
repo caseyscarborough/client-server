@@ -51,10 +51,11 @@ public class Server {
 			System.out.println("Connected to client: " + clientIP + " at Port " + clientPort); 
 			clientSentence = inFromClient.readLine();
 			
+			String timestamp = getTimestamp();
 			System.out.println("Received message: " + clientSentence);
-			output = clientSentence + "\t" + getTimestamp() + "\n";
+			output = "Received message: " + clientSentence + "\t" + timestamp + "\n";
 			outToClient.writeBytes(output);
-			//System.out.println("Sent timestamp on " + reportDate + " to " + clientIP);
+			System.out.println("Sent timestamp on " + timestamp + " to " + clientIP);
 		}
 	}
 	
