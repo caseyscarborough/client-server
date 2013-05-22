@@ -11,7 +11,7 @@ The server is a TCP-based application that binds to port 14500 by default. It lo
 Client
 ------
 
-The client is also a TCP-based application that attempts to connect to a TCP server on port 14500 by default on a user-specified host. To start the application, enter the following on the command line from the root directory of the downloaded repository:
+The client is also a TCP-based application that attempts to connect to a TCP server on port 14500 by default on a user-specified host. To start the application, enter the following on the command line from the bin directory of the downloaded repository:
 ```
-java bin/Client localhost
+java Client localhost
 ```
