@@ -13,13 +13,16 @@ public class Client {
 	private BufferedReader inFromUser, inFromServer;
 	private DataOutputStream outToServer;
 	
-	public static void main (String[] args) throws UnknownHostException, IOException {
+	public static void main (String[] args) {
 		
 		if (args.length == 1) {
 			String address = args[0];
 			Client client = new Client();
-			//client.connectToServer(address);
-			client.getUserInput(address);
+			try {
+				client.getUserInput(address);
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			}
 		} else if (args.length < 1) {
 			System.out.println("Please enter the server address as the first argument:");
 			System.out.println("Usage: java Client <ip-address>");
@@ -45,21 +48,20 @@ public class Client {
 	private void getUserInput(String address) throws IOException {
 		String fromUser = "";
 		String reply = "";
-		
+		String timestamp = "";
 		while(!fromUser.equalsIgnoreCase("quit")) {
 			connectToServer(address);
-			System.out.println("Input: "); 
+			System.out.print("\nEnter message: "); 
 			
 			fromUser = inFromUser.readLine();
 			outToServer.writeBytes(fromUser + "\n");
 			
 			reply = inFromServer.readLine();
-			System.out.println("Response from server:\n" + reply);
+			timestamp = inFromServer.readLine();
+			System.out.println("Response from server: " + reply);
+			System.out.println("Timestamp from server: " + timestamp); 
 		}
 		System.out.println("Closing connection...");
-		outToServer.close();
-		inFromServer.close();
-		inFromUser.close();
-		clientSocket.close();
+		clientSocket.close(); 
 	}
 }

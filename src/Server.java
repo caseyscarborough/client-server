@@ -23,7 +23,7 @@ public class Server {
 				server.acceptConnections();
 			}
 		} catch (IOException e) {
-			System.out.println(e.getMessage()); 
+			e.printStackTrace(); 
 		}
 	}
 	
@@ -35,11 +35,11 @@ public class Server {
 	
 	public void acceptConnections() throws IOException {
 		System.out.println("Accepting connections...\n"); 
+		String clientSentence, reply;
 		while(true) {
-			String clientSentence, output, clientIP;
-			int clientPort;
-			
 			Socket connectionSocket = welcomeSocket.accept();
+			String clientIP;
+			int clientPort;
 			
 			BufferedReader inFromClient = 
 					new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
@@ -53,9 +53,9 @@ public class Server {
 			
 			String timestamp = getTimestamp();
 			System.out.println("Received message: " + clientSentence);
-			output = "Received message: " + clientSentence + "\t" + timestamp + "\n";
-			outToClient.writeBytes(output);
-			System.out.println("Sent timestamp on " + timestamp + " to " + clientIP);
+			reply = clientSentence + "\n" + timestamp + "\n";
+			outToClient.writeBytes(reply);
+			System.out.println("Sent timestamp on " + timestamp + " to " + clientIP + "\n");
 		}
 	}
 	
